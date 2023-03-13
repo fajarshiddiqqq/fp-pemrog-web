@@ -1,4 +1,0 @@
-INI TEXT
-perubahan:
-- perubahan yang dilakukan a
-- perubahan yang dilakukan b
