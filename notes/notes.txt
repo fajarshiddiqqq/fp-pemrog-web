@@ -1,0 +1,115 @@
+HIKING RESERVATION WEBSITE
+
+
+
+======================
+PAGE
+======================
+
+Landing Page:
+- header, navigation, footer
+- main content, featured destinations
+
+User Edit Profile Page:
+- user profile display
+- profile editing form, database integration
+
+======================
+
+Authentication (Login, Register, and Data Input):
+- login form, registration form
+- data input form, validation
+
+======================
+
+Mountain Detail and Route Detail Pages:
+- mountain detail display
+- route detail display
+
+======================
+
+Booking Page:
+- booking form
+- booking confirmation, payment integration
+
+======================
+
+Search Page:
+- search form, filters
+- search results display
+
+======================
+
+
+
+
+======================
+DATABASE
+======================
+
+USERS:
+- user_id (int)
+- user_name (varchar20)
+- user_email (varchar50)
+- user_password (varchar20, sha1)
+
+=======================
+
+USER DETAIL:
+- user_detail_id (int)
+- user_id (int)
+- user_full_name (varchar50)
+- user_phone_number (varchar20)
+- user_birth_date (date)
+- user_province (varchar20)
+- user_district (varchar20)
+- user_postal_code (char10)
+- user_address (text)
+- user_weight (decimal)
+- user_height (decimal)
+- user_photo (varchar255)
+- user_identity_card (varchar255)
+
+
+======================
+
+MOUNTAIN:
+- mountain_id (int)
+- mountain_name (varchar50)
+- mountain_height (decimal)
+- mountain_status (enum='normal','waspada','siaga','awas')
+- mountain_province (varchar20)
+- mountain_img (varchar255)
+
+======================
+
+ROUTE:
+- route_id (int)
+- mountain_id (int)
+- route_name (varchar50)
+- route_address (text)
+- route_status (enum='open','close')
+- route_price (int)
+- route_img (varchar255)
+
+======================
+
+BOOKING LOG:
+- booking_log_id (int)
+- route_id (int)
+- user_detail_id (int)
+- booking_date (date)
+- booking_status (enum='pending', 'complete', 'canceled')
+- booking_sum (int)
+- booking_total_price (int)
+- booking_token (char10)
+
+======================
+
+RATINGS:
+- rating_id (int)
+- user_id (int)
+- rating_points (decimal)
+- rating_date (date)
+
+======================

@@ -1,0 +1,65 @@
+CREATE TABLE USERS (
+  user_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_name VARCHAR(20),
+  user_email VARCHAR(50),
+  user_password VARCHAR(100),
+  user_status ENUM('complete', 'incomplete')
+);
+
+CREATE TABLE USER_DETAIL (
+  user_detail_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  user_full_name VARCHAR(50),
+  user_phone_number VARCHAR(20),
+  user_birth_date DATE,
+  user_province VARCHAR(20),
+  user_district VARCHAR(20),
+  user_postal_code CHAR(10),
+  user_address TEXT,
+  user_weight DECIMAL(5, 2),
+  user_height DECIMAL(5, 2),
+  user_photo VARCHAR(255),
+  user_identity_card VARCHAR(255),
+  FOREIGN KEY (user_id) REFERENCES USERS(user_id)
+);
+
+CREATE TABLE MOUNTAIN (
+  mountain_id INT PRIMARY KEY AUTO_INCREMENT,
+  mountain_name VARCHAR(50),
+  mountain_height DECIMAL(8, 2),
+  mountain_status ENUM('normal', 'waspada', 'siaga', 'awas'),
+  mountain_province VARCHAR(20),
+  mountain_img VARCHAR(255)
+);
+
+CREATE TABLE ROUTE (
+  route_id INT PRIMARY KEY AUTO_INCREMENT,
+  mountain_id INT,
+  route_name VARCHAR(50),
+  route_address TEXT,
+  route_status ENUM('open', 'close'),
+  route_price INT,
+  route_img VARCHAR(255),
+  FOREIGN KEY (mountain_id) REFERENCES MOUNTAIN(mountain_id)
+);
+
+CREATE TABLE BOOKING_LOG (
+  booking_log_id INT PRIMARY KEY AUTO_INCREMENT,
+  route_id INT,
+  user_detail_id INT,
+  booking_date DATE,
+  booking_status ENUM('pending', 'complete', 'canceled'),
+  booking_sum INT,
+  booking_total_price INT,
+  booking_token CHAR(10),
+  FOREIGN KEY (route_id) REFERENCES ROUTE(route_id),
+  FOREIGN KEY (user_detail_id) REFERENCES USER_DETAIL(user_detail_id)
+);
+
+CREATE TABLE RATINGS (
+  rating_id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  rating_points DECIMAL(3, 1),
+  rating_date DATE,
+  FOREIGN KEY (user_id) REFERENCES USERS(user_id)
+);
