@@ -16,8 +16,8 @@ if (isset($_SESSION['user'])) {
 </head>
 
 <body>
-    <div class="w-full h-screen flex justify-center items-center px-4">
-        <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative">
+    <div class="w-full h-screen flex justify-center items-center px-4 " style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+        <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative bg-white">
             <h3 class="text-4xl font-semibold my-2">Sign in</h3>
             <p class="mb-12">Fill the forms below.</p>
             <h6 class="text-red-500 text-sm absolute top-36 hidden" id='errormsg'>Error message!</h6>
@@ -56,10 +56,10 @@ if (isset($_POST['login'])) {
     $get_user = $conn->query("SELECT * FROM users WHERE (user_name='$username' OR user_email='$username');");
     $user_data = $get_user->fetch_assoc();
 
-    echo "<pre>";
-    print_r($user_data);
-    echo "</pre>";
-    echo $password;
+    // echo "<pre>";
+    // print_r($user_data);
+    // echo "</pre>";
+    // echo $password;
 
     if (empty($user_data)) {
         echo "<script>document.getElementById('errormsg').classList.remove('hidden');</script>";

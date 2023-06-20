@@ -10,7 +10,6 @@
         <?php else : ?>
             <div class="flex items-center gap-4">
                 <!-- LOGOUT BUTTON -->
-                <!-- <a href="login/logout.php?return_url=<?php echo urlencode($_SERVER['PHP_SELF']); ?>" class="bg-red-500 text-white font-semibold w-[90px] py-2 rounded-sm hover:bg-red-400 text-center block">Logout</a> -->
                 <div id='UserProfile' class="w-20 h-20 flex items-center overflow-hidden rounded-full object-cover cursor-pointer" onclick="handleProfileComponents()">
                     <!-- IF DATA COMPLETE -->
                     <?php
@@ -20,7 +19,7 @@
                         $user_data = $result->fetch_assoc();
                         $userPhoto = $user_data['user_photo'];
                     ?>
-                        <img src="../assets/img/userdata/<?php echo $userPhoto; ?>" alt="user_profile">
+                        <img src="../assets/img/userdata/<?php echo $userPhoto; ?>?timestamp=<?php echo time(); ?>" alt="user_profile">
                         <!-- IF DATA NOT COMPLETE -->
                     <?php
                     } else {

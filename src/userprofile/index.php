@@ -1,14 +1,13 @@
 <?php
 include '../connection.php';
-echo "<pre>";
-print_r($_SESSION['user']);
-echo "</pre>";
+
+// echo "<pre>";
+// print_r($_SESSION['user']);
+// echo "</pre>";
+
 $userId = $_SESSION['user']['user_id'];
 $getUserQuery = $conn->query("SELECT * FROM user_detail WHERE user_id = $userId");
-$getUser = $getUser->fetch_assoc();
-echo "<pre>";
-print_r($getUser);
-echo "</pre>";
+$getUser = $getUserQuery->fetch_assoc();
 
 ?>
 <!DOCTYPE html>
@@ -22,16 +21,20 @@ echo "</pre>";
 </head>
 
 <body>
-    <div class="w-full flex items-center justify-center h-screen">
-        <form class="border shadow-sm rounded-sm px-12 py-3 w-full max-w-xl">
+    <div class="w-full flex items-center justify-center h-screen" style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+        <form class="border shadow-sm rounded-sm px-12 py-3 w-full max-w-xl relative bg-white" method="post">
+            <a href="../index.php" class="absolute right-10 top-6 cursor-pointer">
+                <img src="../../assets/x_symbol.svg" width="20" alt="">
+
+            </a>
             <h3 class="text-center text-4xl font-semibold my-5">User profile</h3>
-            <div class="w-full flex items-center justify-center mb-5">
-                <div class="w-28 bg-black h-28 flex items-center overflow-hidden rounded-full object-cover cursor-pointer">
+            <div class="w-full flex items-center justify-center mb-5 relative">
+                <div class="w-28 h-28 flex items-center overflow-hidden rounded-full object-cover group">
                     <?php
-                    if ($getUser && $getUser->num_rows > 0) {
-                        $userPhoto = $user_data['user_photo'];
+                    if ($getUser) {
                     ?>
-                        <img src="../../assets/img/userdata/<?php echo $userPhoto; ?>" alt="user_profile">
+                        <img src="../../assets/img/userdata/<?php echo $getUser['user_photo']; ?>?timestamp=<?php echo time(); ?>" alt="user_profile">
+
                         <!-- IF DATA NOT COMPLETE -->
                     <?php
                     } else {
@@ -40,27 +43,57 @@ echo "</pre>";
                     <?php
                     }
                     ?>
+
                 </div>
+
+
             </div>
             <div class="mb-5 flex flex-col">
                 <label for="username" class="mb-3 uppercase text-xs font-bold">Username</label>
-                <input type="text" name="username" id="username" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required>
+                <input type="text" name="username" id="username" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required value="<?php echo $_SESSION['user']['user_name'] ?>">
             </div>
             <div class="mb-5 flex flex-col">
-                <label for="username" class="mb-3 uppercase text-xs font-bold">Email</label>
-                <input type="text" name="username" id="username" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required>
+                <label for="email" class="mb-3 uppercase text-xs font-bold">Email</label>
+                <input type="email" name="email" id="email" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required value="<?php echo $_SESSION['user']['user_email'] ?>">
             </div>
             <div class="mb-12 flex flex-col">
                 <label for="password" class="mb-3 uppercase text-xs font-bold">Password</label>
-                <input type="password" name="password" id="password" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required>
+                <input type="password" name="password" id="password" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2 placeholder:text-black" placeholder="<?php for ($x = 0; $x < $_SESSION['user']['user_password_count']; $x++) {
+                                                                                                                                                                                        echo "•";
+                                                                                                                                                                                    } ?>" value="">
             </div>
             <div class="w-full flex justify-between mb-5">
-                <button class="border rounded-sm text-white hover:text-gray-500 bg-gray-500 hover:bg-white border-gray-500 font-semibold px-4 py-2">More Data</button>
-                <button class="border rounded-sm px-6 py-2 font-semibold hover:text-blue-500 border-blue-500 bg-blue-500 text-white hover:bg-white  ">Save</button>
+                <a href="editdata.php" class="border rounded-sm text-white hover:text-gray-500 bg-gray-500 hover:bg-white border-gray-500 font-semibold px-4 py-2">More Data</a>
+                <button name="submit" class="border rounded-sm px-6 py-2 font-semibold hover:text-blue-500 border-blue-500 bg-blue-500 text-white hover:bg-white  ">Save</button>
             </div>
-    </div>
-    </form>
+        </form>
     </div>
 </body>
 
 </html>
+<?php
+if (isset($_POST['submit'])) {
+    $user_id = $_SESSION['user']['user_id'];
+    $new_name = $_POST['username'];
+    $new_email = $_POST['email'];
+    if ($_POST['password'] == '') {
+        $new_password = $_SESSION['user']['user_password'];
+    } else {
+        $new_password = $_POST['password'];
+    }
+    if ($_SESSION['user']['user_name'] != $new_name) {
+        $conn->query("UPDATE users SET user_name='$new_name' WHERE user_id='$user_id';");
+        $_SESSION['user']['user_name'] = $new_name;
+    }
+    if ($_SESSION['user']['user_email'] != $new_email) {
+        $conn->query("UPDATE users SET user_email='$new_email' WHERE user_id='$user_id';");
+        $_SESSION['user']['user_email'] = $new_email;
+    }
+    if ($_SESSION['user']['user_password'] != $new_password) {
+        $conn->query("UPDATE users SET user_password='$new_password' WHERE user_id='$user_id';");
+        $_SESSION['user']['user_password'] = $new_password;
+    }
+    header("Location: ../index.php");
+    exit();
+}
+?>

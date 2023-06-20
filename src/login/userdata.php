@@ -46,8 +46,8 @@ if (isset($_SESSION['user']['user_status']) != 'incomplete') {
 </head>
 
 <body>
-    <div class="w-full flex justify-center items-center px-4">
-        <div class="border flex flex-col justify-center items-center mt-[2rem] max-w-[50rem]  py-12 px-16 rounded-lg shadow-lg relative">
+    <div class="w-full flex justify-center items-center px-4" style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+        <div class="border flex flex-col justify-center items-center mt-[2rem] max-w-[50rem] py-12 px-16 rounded-lg shadow-lg relative mb-12 bg-white">
             <h3 class="text-4xl font-semibold my-2">Data Input</h3>
             <p class="mb-12">Fill the forms below.</p>
             <h6 class="text-red-500 text-sm absolute top-36 hidden" id='errormsg'>Error message!</h6>
@@ -181,6 +181,7 @@ if (isset($_POST['submit'])) {
     $sqlInsert = "INSERT INTO user_detail (user_id, user_full_name, user_phone_number, user_birth_date, user_province, user_city, user_district, user_postal_code, user_address, user_weight, user_height, user_photo, user_identity_card, user_identity_status) VALUES ('$user_id', '$fullname', '$fullPhoneNumber', '$birthdate', '$province', '$city', '$district', '$postalcode', '$address', '$weight', '$height', '$photo_name', '$identitycard_name', '$identity_status')";
 
     $sqlUpdate = "UPDATE users SET user_status = 'complete' WHERE user_id = '$user_id'";
+    $_SESSION['user']['user_status'] = 'complete';
 
     $resultInsert = $conn->query($sqlInsert);
     $resultUpdate = $conn->query($sqlUpdate);

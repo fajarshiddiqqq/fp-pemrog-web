@@ -16,8 +16,8 @@ if (isset($_SESSION['user'])) {
 </head>
 
 <body>
-    <div class="w-full h-screen flex justify-center items-center px-4">
-        <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative">
+    <div class="w-full h-screen flex justify-center items-center px-4 " style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+        <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative bg-white">
             <h3 class="text-4xl font-semibold my-2">Sign Up</h3>
             <p class="mb-12">Fill the forms below.</p>
             <h6 class="text-red-500 text-sm absolute top-36 hidden" id='errormsg'>Error message!</h6>
@@ -59,6 +59,7 @@ if (isset($_POST['signup'])) {
     $email = $_POST['email'];
     $password = sha1($_POST['password']);
     $pass_confirm = sha1($_POST['pass_confirm']);
+    $pass_count = strlen($_POST['password']);
     $status = 'incomplete';
 
 
@@ -67,8 +68,9 @@ if (isset($_POST['signup'])) {
         echo "<script>document.getElementById('errormsg').textContent = 'Password did not match!';</script>";
         exit();
     } else {
-        $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password, user_status) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $username, $email, $password, $status);
+
+        $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password, user_password_count, user_status) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssis", $username, $email, $password, $pass_count, $status);
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
