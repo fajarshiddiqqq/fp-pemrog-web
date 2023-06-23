@@ -202,9 +202,9 @@ if ($_SESSION['user']['user_status'] == 'complete') {
                         <label for="photo" class="mb-5 uppercase text-xs font-bold">User Photo</label>
                         <div class="flex flex-col items-center">
                             <?php if ($_SESSION['user']['user_status'] == 'complete') : ?>
-                                <img src="../../assets/img/userdata/<?php echo $row['user_photo']; ?>?timestamp=<?php echo time(); ?>" class="h-28 mb-5 cursor-pointer scale-125" id='blah' alt="user_profile" onclick="handleClickPhoto()">
+                                <img src="../../assets/img/userdata/<?php echo $row['user_photo']; ?>?timestamp=<?php echo time(); ?>" class="h-28 mb-5 cursor-pointer scale-125" id='prev' alt="user_profile" onclick="handleClickPhoto()">
                             <?php else : ?>
-                                <img src="" class="max-h-28 mb-5 cursor-pointer" id='blah' onclick="handleClickPhoto()">
+                                <img src="" class="max-h-28 mb-5 cursor-pointer" id='prev' onclick="handleClickPhoto()">
                             <?php endif; ?>
                             <input type="file" name="photo" id="photo" accept='image/*' style="display:none;" />
                             <label for="photo" class="border border-black px-4 py-2 text-sm hover:bg-slate-200 italic cursor-pointer">
@@ -217,17 +217,19 @@ if ($_SESSION['user']['user_status'] == 'complete') {
 
                         <?php if ($_SESSION['user']['user_status'] == 'complete') : ?>
                             <?php if ($row['user_identity_status'] == 'verified') : ?>
-                                <span class="text-green-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%]">(verified)</span>
+                                <span class="text-green-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%] italic">(verified)</span>
+                            <?php elseif ($row['user_identity_status'] == 'unverified') : ?>
+                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%] italic">(unverified)</span>
                             <?php else : ?>
-                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%]">(unverified)</span>
+                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%] italic">(rejected)</span>
                             <?php endif; ?>
                         <?php endif; ?>
 
                         <div class="flex flex-col items-center">
                             <?php if ($_SESSION['user']['user_status'] == 'complete') : ?>
-                                <img src="../../assets/img/userdata/<?php echo $row['user_identity_card']; ?>?timestamp=<?php echo time(); ?>" class="h-28 mb-5 cursor-pointer" id='blah1' alt="identity_card" onclick="handleClickIdentity()">
+                                <img src="../../assets/img/userdata/<?php echo $row['user_identity_card']; ?>?timestamp=<?php echo time(); ?>" class="h-28 mb-5 cursor-pointer" id='prev1' alt="identity_card" onclick="handleClickIdentity()">
                             <?php else : ?>
-                                <img src="" class="max-h-28 mb-5 cursor-pointer" id='blah1' onclick="handleClickIdentity()">
+                                <img src="" class="max-h-28 mb-5 cursor-pointer" id='prev1' onclick="handleClickIdentity()">
                             <?php endif; ?>
                             <input type="file" name="identitycard" id="identitycard" accept='image/*' style="display:none;" />
                             <label for="identitycard" class="border border-black px-4 py-2 text-sm hover:bg-slate-200 italic cursor-pointer">
@@ -252,8 +254,8 @@ if ($_SESSION['user']['user_status'] == 'complete') {
         window.addEventListener('DOMContentLoaded', () => {
             const photoInput = document.getElementById('photo');
             const identityCardInput = document.getElementById('identitycard');
-            const photoPreview = document.getElementById('blah');
-            const identityCardPreview = document.getElementById('blah1');
+            const photoPreview = document.getElementById('prev');
+            const identityCardPreview = document.getElementById('prev1');
 
 
 

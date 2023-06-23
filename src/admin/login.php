@@ -1,5 +1,8 @@
 <?php
 include '../connection.php';
+if (isset($_SESSION['admin'])) {
+    echo "<script>location='./index.php'</script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
