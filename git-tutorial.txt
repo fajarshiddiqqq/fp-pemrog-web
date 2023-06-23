@@ -1,0 +1,46 @@
+==== STAGE DALAM GIT ====
+
+WORKING DIRECTORY  <--> STAGING AREA <--> GIT DIRECTORY <--> GIT CLOUD
+
+Working directory = Area waktu kita melakukan perubahan pada directory
+Staging area	  = Area persiapan untuk commit update
+Git directory 	  = Area ketika repository sudah terupdate (local)
+Git cloud	  = Area untuk upload commit ke cloud (github, gitlab, etc.)
+
+
+==== UNTUK NARIK REPOSITORY ====
+
+git init 				//supaya git-nya terdeteksi dalam folder
+git remote add origin <link-repo>  	//supaya kita bisa ngakses reponya
+git clone <link-repo>   		//untuk copas project dari github biar reponya sama dulu (sekali aja)
+git pull origin <nama-branch> 		//untuk nyamain perubahan dari project yang ada di pc (yang udah diclone) sama yang digithub
+
+
+
+==== UNTUK DORONG REPOSITORY ====
+
+git add . 				//untuk mendorong perubahan ke staging area
+git commit -m "<pesan-commit>"		//untuk commit update yang ada di staging area
+git push origin <nama-branch>		//untuk mendorong update ke git cloud
+
+
+
+==== PERINTAH BRANCH ====
+
+git branch
+git branch <nama-branch>
+git branch -M <nama-branch>
+git branch -D <nama-branch>
+git checkout <nama-branch>
+git merge <nama-branch>
+
+
+==== PERINTAH LAIN ====
+
+git config --global user.name <nama username>
+git config --global user.email <nama email>
+git status
+git diff
+git reset
+git log
+git rm .

@@ -16,10 +16,13 @@ if (isset($_SESSION['user'])) {
 </head>
 
 <body>
-    <div class="w-full h-screen flex justify-center items-center px-4 " style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+    <div class="w-full h-screen flex justify-center items-center px-4 ">
         <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative bg-white">
             <h3 class="text-4xl font-semibold my-2">Sign in</h3>
             <p class="mb-12">Fill the forms below.</p>
+            <a href="../index.php" class="absolute right-10 top-6 cursor-pointer">
+                <img src="../../assets/x_symbol.svg" width="20" alt="">
+            </a>
             <h6 class="text-red-500 text-sm absolute top-36 hidden" id='errormsg'>Error message!</h6>
             <form method='POST' class="w-full">
                 <div class="mb-5 flex flex-col">
@@ -31,7 +34,7 @@ if (isset($_SESSION['user'])) {
                     <input type="password" name="password" id="password" placeholder="• • • • •" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required>
                 </div>
                 <div class="mb-16">
-                    <a class="font-semibold text-blue-500 text-sm cursor-pointer hover:text-blue-400">Forgot password?</a>
+                    <a class="font-semibold text-blue-500 text-sm cursor-pointer hover:text-blue-400" onclick="handleForgot()">Forgot password?</a>
                 </div>
                 <div class="flex justify-between items-center">
                     <a href="register.php" class="text-blue-500 font-semibold cursor-pointer hover:text-blue-400">
@@ -44,6 +47,11 @@ if (isset($_SESSION['user'])) {
             </form>
         </div>
     </div>
+    <script>
+        const handleForgot = () => {
+            alert('Ongoing feature..')
+        }
+    </script>
 </body>
 
 </html>

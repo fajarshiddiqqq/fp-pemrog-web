@@ -46,7 +46,7 @@ if (isset($_SESSION['user']['user_status']) != 'incomplete') {
 </head>
 
 <body>
-    <div class="w-full flex justify-center items-center px-4" style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+    <div class="w-full flex justify-center items-center px-4">
         <div class="border flex flex-col justify-center items-center mt-[2rem] max-w-[50rem] py-12 px-16 rounded-lg shadow-lg relative mb-12 bg-white">
             <h3 class="text-4xl font-semibold my-2">Data Input</h3>
             <p class="mb-12">Fill the forms below.</p>

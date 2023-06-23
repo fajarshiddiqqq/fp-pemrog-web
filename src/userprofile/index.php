@@ -1,9 +1,7 @@
 <?php
 include '../connection.php';
 
-// echo "<pre>";
-// print_r($_SESSION['user']);
-// echo "</pre>";
+
 
 $userId = $_SESSION['user']['user_id'];
 $getUserQuery = $conn->query("SELECT * FROM user_detail WHERE user_id = $userId");
@@ -21,11 +19,10 @@ $getUser = $getUserQuery->fetch_assoc();
 </head>
 
 <body>
-    <div class="w-full flex items-center justify-center h-screen" style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+    <div class="w-full flex items-center justify-center h-screen">
         <form class="border shadow-sm rounded-sm px-12 py-3 w-full max-w-xl relative bg-white" method="post">
             <a href="../index.php" class="absolute right-10 top-6 cursor-pointer">
                 <img src="../../assets/x_symbol.svg" width="20" alt="">
-
             </a>
             <h3 class="text-center text-4xl font-semibold my-5">User profile</h3>
             <div class="w-full flex items-center justify-center mb-5 relative">
@@ -34,8 +31,6 @@ $getUser = $getUserQuery->fetch_assoc();
                     if ($getUser) {
                     ?>
                         <img src="../../assets/img/userdata/<?php echo $getUser['user_photo']; ?>?timestamp=<?php echo time(); ?>" alt="user_profile">
-
-                        <!-- IF DATA NOT COMPLETE -->
                     <?php
                     } else {
                     ?>
@@ -58,9 +53,9 @@ $getUser = $getUserQuery->fetch_assoc();
             </div>
             <div class="mb-12 flex flex-col">
                 <label for="password" class="mb-3 uppercase text-xs font-bold">Password</label>
-                <input type="password" name="password" id="password" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2 placeholder:text-black" placeholder="<?php for ($x = 0; $x < $_SESSION['user']['user_password_count']; $x++) {
-                                                                                                                                                                                        echo "•";
-                                                                                                                                                                                    } ?>" value="">
+                <input onclick="hidePlaceholder()" onblur="showPlaceholder()" type="password" name="password" id="password" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2 placeholder:text-black" placeholder="<?php for ($x = 0; $x < $_SESSION['user']['user_password_count']; $x++) {
+                                                                                                                                                                                                                                            echo "•";
+                                                                                                                                                                                                                                        } ?>" value="">
             </div>
             <div class="w-full flex justify-between mb-5">
                 <a href="editdata.php" class="border rounded-sm text-white hover:text-gray-500 bg-gray-500 hover:bg-white border-gray-500 font-semibold px-4 py-2">More Data</a>
@@ -68,6 +63,19 @@ $getUser = $getUserQuery->fetch_assoc();
             </div>
         </form>
     </div>
+    <script>
+        function hidePlaceholder() {
+            var input = document.getElementById('password');
+            input.placeholder = '';
+        }
+
+        function showPlaceholder() {
+            var input = document.getElementById('password');
+            input.placeholder = '<?php for ($x = 0; $x < $_SESSION['user']['user_password_count']; $x++) {
+                                        echo "•";
+                                    } ?>';
+        }
+    </script>
 </body>
 
 </html>
@@ -79,7 +87,8 @@ if (isset($_POST['submit'])) {
     if ($_POST['password'] == '') {
         $new_password = $_SESSION['user']['user_password'];
     } else {
-        $new_password = $_POST['password'];
+        $new_password = sha1($_POST['password']);
+        $pass_count = strlen($_POST['password']);
     }
     if ($_SESSION['user']['user_name'] != $new_name) {
         $conn->query("UPDATE users SET user_name='$new_name' WHERE user_id='$user_id';");
@@ -90,10 +99,14 @@ if (isset($_POST['submit'])) {
         $_SESSION['user']['user_email'] = $new_email;
     }
     if ($_SESSION['user']['user_password'] != $new_password) {
-        $conn->query("UPDATE users SET user_password='$new_password' WHERE user_id='$user_id';");
+        $conn->query("UPDATE users SET user_password='$new_password', user_password_count='$pass_count' WHERE user_id='$user_id';");
         $_SESSION['user']['user_password'] = $new_password;
+        $_SESSION['user']['user_password_count'] = $pass_count;
     }
-    header("Location: ../index.php");
-    exit();
+
+    // echo "<pre>";
+    // print_r($_SESSION['user']);
+    // echo "</pre>";
+    echo "<script>window.location='../index.php'</script>";
 }
 ?>

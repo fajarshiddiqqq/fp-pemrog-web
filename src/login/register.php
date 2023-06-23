@@ -16,10 +16,13 @@ if (isset($_SESSION['user'])) {
 </head>
 
 <body>
-    <div class="w-full h-screen flex justify-center items-center px-4 " style="background: lightblue url('../../assets/wall1.jpg') fixed center;">
+    <div class="w-full h-screen flex justify-center items-center px-4 ">
         <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative bg-white">
             <h3 class="text-4xl font-semibold my-2">Sign Up</h3>
             <p class="mb-12">Fill the forms below.</p>
+            <a href="../index.php" class="absolute right-10 top-6 cursor-pointer">
+                <img src="../../assets/x_symbol.svg" width="20" alt="">
+            </a>
             <h6 class="text-red-500 text-sm absolute top-36 hidden" id='errormsg'>Error message!</h6>
             <form method='POST' class="w-full">
                 <div class="mb-5 flex flex-col">
