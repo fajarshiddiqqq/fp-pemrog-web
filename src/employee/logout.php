@@ -1,4 +1,4 @@
 <?php
 include '../connection.php';
-session_destroy();
+unset($_SESSION['employee']);
 echo "<script>location='./login.php'</script>";
