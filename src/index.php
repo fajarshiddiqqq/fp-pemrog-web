@@ -27,13 +27,26 @@ include 'connection.php';
             $result = $conn->query("SELECT * FROM user_detail WHERE user_id = $userId");
             if ($result && $result->num_rows > 0) {
                 $user_data = $result->fetch_assoc();
+                $userdetailid = $user_data['user_detail_id'];
                 echo '<h2>Data table user detail: </h2>';
                 echo "<pre>";
                 print_r($user_data);
-                echo "</pre>";
+                echo "</pre><br>";
+                $result1 = $conn->query("SELECT * FROM booking_log WHERE user_detail_id = $userdetailid");
+                if ($result1 && $result1->num_rows > 0) {
+                    $user_booking_data = $result1->fetch_assoc();
+                    echo '<h2>Data Booking User: </h2>';
+                    echo "<pre>";
+                    print_r($user_booking_data);
+                    echo "</pre>";
+                } else {
+                    echo 'Tidak ada proses booking';
+                }
             } else {
-                echo 'user belum ada data detail';
+                echo 'user belum ada data detail <br>';
             }
+
+
             ?>
         <?php else : ?>
             <h3>Belum ada user login</h3>
