@@ -2,6 +2,10 @@
     <div>
         <h3 class="text-3xl font-black">Booking Pendakian</h3>
     </div>
+    <div>
+        <a href="./listgunung.php" class="underline">List gunung</a>
+        <a href="./history.php" class="underline">History</a>
+    </div>
     <div class="flex items-center">
         <?php if (!isset($_SESSION['user'])) : ?>
             <a href="../src/login" class="bg-blue-500 text-white font-semibold w-[90px] py-2 rounded-sm hover:bg-blue-400 text-center block">Sign In</a>
