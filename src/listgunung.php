@@ -1,6 +1,6 @@
 <?php
     include 'connection.php';
-    $querry_mountain = $conn->query("SELECT * FROM mountain WHERE mountain_id = 1");
+    $querry_mountain = $conn->query("SELECT * FROM mountain");
     
     $data_mountain = $querry_mountain->fetch_assoc();
 ?>
@@ -28,7 +28,7 @@
             <td><?php echo $data_mountain['mountain_height']?><br> </td>
             <td><?php echo $data_mountain['mountain_province']?><br> </td>
             <td><?php echo $data_mountain['mountain_img']?><br></td>
-            <td><a href="mountaindetail.php?=<?php echo $data_mountain['mountain_id']?>">Lihat</a></td>
+            <td><a href="mountaindetail.php?mountain=<?php echo $data_mountain['mountain_id']?>">Lihat</a></td>
         </tr>
     </table>
 </body>

@@ -1,6 +1,7 @@
 <?php
 include './connection.php';
-$queryRute = $conn->query("SELECT * FROM `route` WHERE route_id = 1");
+$route_id = $_GET['route'];
+$queryRute = $conn->query("SELECT * FROM `route` WHERE route_id = $route_id");
 
 $dataRute = $queryRute->fetch_assoc();
 // echo '<pre>';
