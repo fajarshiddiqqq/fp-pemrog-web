@@ -15,21 +15,31 @@
 
     function saveTokenToDatabase($token)
     {
-        global $con;
+        global $conn;
 
         $currentDateTime = date('Y-m-d H:i:s');
 
         // Pernyataan SQL untuk menyimpan token ke tabel
-        $sql = "INSERT INTO booking_log (booking_log_id, route_id, user_detail_id, booking_date, booking_status, booking_sum, booking_total_price, booking_token) VALUES ('','','','','$currentDateTime','','','', '$token')";
+        $sql = "INSERT INTO booking_log (booking) VALUES ('$currentDateTime', '$token')";
 
         // Menjalankan pernyataan SQL untuk menyimpan token
-        if ($con->query($sql) === false) {
-            die("Error saat menyimpan token ke database: " . $con->error);
+        if ($conn->query($sql) === false) {
+            die("Error saat menyimpan token ke database: " . $conn->error);
         }
     }
-    function expireddate ($token)
+    function expireddate ($token,$currentDateTime ,$expirationTime)
     {
-        
+        global $conn;
+
+        $booking_date = date('Y-m-d H:i:s');
+    
+        // SQL statement to save token and expiration time to the database
+        $sql = "INSERT INTO booking_log (booking_date, booking_expired, booking_token) VALUES ('$currentDateTime', '$expirationTime', '$token')";
+    
+        // Run the SQL statement to save the token
+        if ($conn->query($sql) === false) {
+            die("Error while saving token to the database: " . $conn->error);
+        }
     }
     // Menghasilkan token baru
     $token = generateToken();

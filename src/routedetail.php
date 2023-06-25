@@ -46,12 +46,28 @@ if (isset($_POST['submit'])) {
     } else {
         $user_data = $_SESSION['user'];
         $user_id = $user_data['user_id'];
-        $queryIdentityStatus = $conn->query("SELECT user_identity_status FROM user_detail WHERE user_id = '$user_id'");
-        $identityStatus = $queryIdentityStatus->fetch_assoc();
-        if ($identityStatus['user_identity_status'] == 'verified') {
+        $queryUserDetail = $conn->query("SELECT user_detail_id,user_identity_status FROM user_detail WHERE user_id = '$user_id'");
+        $dataUserDetail = $queryUserDetail->fetch_assoc();
+        if ($dataUserDetail['user_identity_status'] == 'verified') {
             // simpan ke booking log
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            $token = '';
+            $max = strlen($characters) - 1;
+
+            for ($i = 0; $i < 6; $i++) {
+                $token .= $characters[rand(0, $max)];
+            }
+            $user_detail_id= $dataUserDetail['user_detail_id'];
+            $booking_date = date('Y-m-d H:i:s');
+            $booking_expired = date('Y-m-d H:i:s', strtotime($booking_date . '+5 days'));
+            $querryInsert = $conn->query("INSERT INTO booking_log(route_id, user_detail_id, booking_date, booking_expired, booking_status, booking_token) VALUES('$route_id','$user_detail_id','$booking_date', '$booking_expired','pending','$token')" );
             // redirect ke ongoing page
-            echo "<script>alert('Data booking sudah tersimpan')</script>";
+            if($querryInsert){
+                echo "<script>alert('Data booking sudah tersimpan')</script>";
+            }else{
+                echo "<script>alert('Internal server error')</script>";
+
+            }
         } else {
             echo "<script>alert('KTP BELUM TERVERIFIKASI')</script>";
         }
