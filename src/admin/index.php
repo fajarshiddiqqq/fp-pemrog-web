@@ -24,9 +24,9 @@ for ($i = 0; $i < count($userData); $i++) {
     }
 }
 
-echo '<pre>';
-print_r($userData);
-echo '</pre>';
+// echo '<pre>';
+// print_r($userData);
+// echo '</pre>';
 ?>
 
 <!DOCTYPE html>
