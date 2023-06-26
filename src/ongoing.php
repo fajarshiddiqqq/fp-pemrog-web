@@ -1,1 +1,0 @@
-<!-- ini halaman ongoing (isinya kayak tiket ) -->
