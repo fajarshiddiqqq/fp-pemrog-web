@@ -1,17 +1,17 @@
 <nav class="flex justify-between items-center px-4 py-5 max-w-screen-xl h-[125px] mx-auto border-b mb-12 relative">
     <div>
-        <h3 class="text-3xl font-black">Booking Pendakian</h3>
+        <a href="./index.php" class="text-3xl font-black">Booking Pendakian</a>
+    </div>
+    <div>
+        <a href="./listgunung.php" class="underline">List gunung</a>
+        <a href="./history.php" class="underline">History</a>
     </div>
     <div class="flex items-center">
-        <!-- IF NOT LOGGED -->
         <?php if (!isset($_SESSION['user'])) : ?>
             <a href="../src/login" class="bg-blue-500 text-white font-semibold w-[90px] py-2 rounded-sm hover:bg-blue-400 text-center block">Sign In</a>
-            <!-- IF LOGGED -->
         <?php else : ?>
             <div class="flex items-center gap-4">
-                <!-- LOGOUT BUTTON -->
                 <div id='UserProfile' class="w-20 h-20 flex items-center overflow-hidden rounded-full object-cover cursor-pointer" onclick="handleProfileComponents()">
-                    <!-- IF DATA COMPLETE -->
                     <?php
                     $userId = $_SESSION['user']['user_id'];
                     $result = $conn->query("SELECT user_photo FROM user_detail WHERE user_id = $userId");
@@ -20,7 +20,6 @@
                         $userPhoto = $user_data['user_photo'];
                     ?>
                         <img src="../assets/img/userdata/<?php echo $userPhoto; ?>?timestamp=<?php echo time(); ?>" alt="user_profile">
-                        <!-- IF DATA NOT COMPLETE -->
                     <?php
                     } else {
                     ?>

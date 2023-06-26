@@ -1,6 +1,6 @@
 <?php
 include '../connection.php';
-if (isset($_SESSION['admin'])) {
+if (isset($_SESSION['employee'])) {
     echo "<script>location='./index.php'</script>";
 }
 ?>
@@ -10,7 +10,7 @@ if (isset($_SESSION['admin'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login Page</title>
+    <title>Employee Login Page</title>
     <link rel="stylesheet" href="../../dist/output.css">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 </head>
@@ -18,7 +18,7 @@ if (isset($_SESSION['admin'])) {
 <body>
     <div class="w-full h-screen flex justify-center items-center px-4 ">
         <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative bg-white">
-            <h3 class="text-4xl font-semibold my-2">Admin Login</h3>
+            <h3 class="text-4xl font-semibold my-2">Employee Login</h3>
             <p class="mb-12">Fill all the credentials.</p>
             <h6 class="text-red-500 text-sm absolute top-36 hidden" id='errormsg'>Error message!</h6>
             <form method='POST' class="w-full">
@@ -44,23 +44,21 @@ if (isset($_SESSION['admin'])) {
 
 <?php
 if (isset($_POST['login'])) {
-    $admin_name = $_POST['username'];
-    $admin_password = sha1($_POST['password']);
+    $employee_name = $_POST['username'];
+    $employee_password = sha1($_POST['password']);
 
-    $getAdminQuery = $conn->query("SELECT * FROM admins WHERE admin_name='$admin_name';");
-    $adminData = $getAdminQuery->fetch_assoc();
+    $getEmployeeQuery = $conn->query("SELECT * FROM employees WHERE employee_name='$employee_name';");
+    $employeeData = $getEmployeeQuery->fetch_assoc();
 
 
-    if (empty($adminData)) {
+    if (empty($employeeData)) {
         echo "<script>document.getElementById('errormsg').classList.remove('hidden');</script>";
-        echo "<script>document.getElementById('errormsg').textContent = 'Admin data is not found!';</script>";
-    } else if ($adminData['admin_password'] !== $admin_password) {
+        echo "<script>document.getElementById('errormsg').textContent = 'Employee data is not found!';</script>";
+    } else if ($employeeData['employee_password'] !== $employee_password) {
         echo "<script>document.getElementById('errormsg').classList.remove('hidden');</script>";
         echo "<script>document.getElementById('errormsg').textContent = 'Wrong password!';</script>";
     } else {
-        // echo "<script>alert('sampai sini');</script>";
-        $_SESSION['admin'] = $adminData;
-        // print_r($_SESSION);
+        $_SESSION['employee'] = $employeeData;
         echo "<script>location='./index.php'</script>";
     }
 }

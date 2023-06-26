@@ -71,12 +71,9 @@ if (isset($_POST['signup'])) {
         echo "<script>document.getElementById('errormsg').textContent = 'Password did not match!';</script>";
         exit();
     } else {
+        $queryInsert = $conn->query("INSERT INTO users (user_name, user_email, user_password, user_password_count, user_status) VALUES ('$username', '$email', '$password', '$pass_count', '$status')");
 
-        $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password, user_password_count, user_status) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssis", $username, $email, $password, $pass_count, $status);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
+        if ($queryInsert) {
             $get_user = $conn->query("SELECT * FROM users WHERE user_name='$username';");
             $user_data = $get_user->fetch_assoc();
             $_SESSION['user'] = $user_data;
@@ -87,8 +84,6 @@ if (isset($_POST['signup'])) {
             echo "<script>document.getElementById('errormsg').classList.remove('hidden');</script>";
             echo "<script>document.getElementById('errormsg').textContent = 'Something error...';</script>";
         }
-
-        $stmt->close();
     }
 }
 ?>

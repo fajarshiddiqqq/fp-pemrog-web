@@ -45,6 +45,7 @@ if ($_SESSION['user']['user_status'] == 'complete') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Input</title>
     <link rel="stylesheet" href="../../dist/output.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
@@ -217,11 +218,11 @@ if ($_SESSION['user']['user_status'] == 'complete') {
 
                         <?php if ($_SESSION['user']['user_status'] == 'complete') : ?>
                             <?php if ($row['user_identity_status'] == 'verified') : ?>
-                                <span class="text-green-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%] italic">(verified)</span>
+                                <span class="text-green-500 font-bold absolute -top-[2px] text-sm right-[40%] md:right-[50%] translate-x-[70%] italic">(verified)</span>
                             <?php elseif ($row['user_identity_status'] == 'unverified') : ?>
-                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%] italic">(unverified)</span>
+                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[40%] md:right-[50%] translate-x-[70%] italic">(unverified)</span>
                             <?php else : ?>
-                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[50%] translate-x-[70%] italic">(rejected)</span>
+                                <span class="text-red-500 font-bold absolute -top-[2px] text-sm right-[40%] md:right-[50%] translate-x-[70%] italic">(rejected)</span>
                             <?php endif; ?>
                         <?php endif; ?>
 

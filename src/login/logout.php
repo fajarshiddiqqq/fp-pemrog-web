@@ -1,6 +1,6 @@
 <?php
 include '../connection.php';
-session_destroy();
+unset($_SESSION['user']);
 
 if (isset($_GET['return_url'])) {
     $return_url = $_GET['return_url'];
