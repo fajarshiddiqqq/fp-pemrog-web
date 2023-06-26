@@ -46,20 +46,23 @@ if (isset($_POST['submit'])) {
     } else {
         $user_data = $_SESSION['user'];
         $user_id = $user_data['user_id'];
-        $queryUserDetail = $conn->query("SELECT user_detail_id ,user_identity_status FROM user_detail WHERE user_id = '$user_id'");
+        $queryUserDetail = $conn->query("SELECT user_detail_id,user_identity_status FROM user_detail WHERE user_id = '$user_id'");
         $dataUserDetail = $queryUserDetail->fetch_assoc();
         if ($dataUserDetail['user_identity_status'] == 'verified') {
-            // TO DO:
-            // 1. Generate token -> masukin ke variable booking_token (panjang 6, terdiri dari lowercase, uppercase, dan angka)
-            // 2. Get current date -> masukin ke variable booking_date (tanggal hari user pencet booking)
-            // 3. Generate expired_date -> masuking ke variable booking_expired (current_date + 5 hari)
-            // 4. INSERT route_id, user_detail_id, booking_date, booking_expired, booking_status, booking_token ke TABLE booking_log
-            // 5. Redirect ke ongoing page
-
-            if ($queryInsert) {
+            $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            $token = '';
+            $max = strlen($characters) - 1;
+            for ($i = 0; $i < 6; $i++) {
+                $token .= $characters[rand(0, $max)];
+            }
+            $user_detail_id = $dataUserDetail['user_detail_id'];
+            $booking_date = date('Y-m-d H:i:s');
+            $booking_expired = date('Y-m-d H:i:s', strtotime($booking_date . '+5 days'));
+            $querryInsert = $conn->query("INSERT INTO booking_log(route_id, user_detail_id, booking_date, booking_expired, booking_status, booking_token) VALUES('$route_id','$user_detail_id','$booking_date', '$booking_expired','pending','$token')");
+            if ($querryInsert) {
                 echo "<script>alert('Data booking sudah tersimpan')</script>";
             } else {
-                echo "<script>alert('Server error')</script>";
+                echo "<script>alert('Internal server error')</script>";
             }
         } else {
             echo "<script>alert('KTP BELUM TERVERIFIKASI')</script>";
