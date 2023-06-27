@@ -11,6 +11,7 @@ while ($arrData = $queryMountain->fetch_assoc()) {
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Gunung</title>
@@ -18,7 +19,7 @@ while ($arrData = $queryMountain->fetch_assoc()) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body style="background-image: url(../assets/img/Background/Gunungmerbabu2.jpg); background-repeat:no-repeat;background-size:100% 100vh">
     <?php include './components/navbar.php' ?>
     <table>
         <tr>
@@ -53,6 +54,7 @@ while ($arrData = $queryMountain->fetch_assoc()) {
 
         </tr>
     </table>
+    
 </body>
 
 </html>
