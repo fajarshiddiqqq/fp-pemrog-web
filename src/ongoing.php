@@ -61,7 +61,7 @@
             <p>Token Tiket: <?php echo $dataBooking['booking_token']; ?></p>
         </div>
 
-        <button class="bg-red-500 text-white px-4 py-2 mt-2">Cancel</button>
+        <button class="bg-red-500 text-white px-4 py-2 mt-2"><a href="history.php">Cancel</a></button>
     </div>
 </body>
 
