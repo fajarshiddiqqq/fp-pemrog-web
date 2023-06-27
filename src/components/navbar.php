@@ -3,6 +3,7 @@
         <a href="./index.php" class="text-3xl font-black">Booking Pendakian</a>
     </div>
     <div>
+        <a href="./listgunung.php"class="underline">List Gunung</a>
         <a href="./ongoing.php" class="underline">Ongoing</a>
         <a href="./history.php" class="underline">History</a>
     </div>
@@ -34,7 +35,7 @@
                 <a href="userprofile" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
                     <li>Manage Account</li>
                 </a>
-                <a href="#" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
+                <a href="/fp-pemrog-web/src/history.php" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
                     <li>History</li>
                 </a>
                 <a href="login/logout.php?return_url=<?php echo urlencode($_SERVER['PHP_SELF']); ?>" class="font-bold text-red-500 px-4 py-3 w-full text-center hover:text-white hover:bg-red-500">
