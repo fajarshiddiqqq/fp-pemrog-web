@@ -22,7 +22,6 @@ while ($row = $queryRute->fetch_assoc()) {
     <table>
         <tr>
             <th>No Rute</th>
-            <th>No Mountain</th>
             <th>Nama</th>
             <th>Quota</th>
             <th>Recent</th>
@@ -34,10 +33,9 @@ while ($row = $queryRute->fetch_assoc()) {
             <th>Action</th>
 
         </tr>
-        <tr>
-            <?php foreach ($dataRute as $key => $value) : ?>
+        <?php foreach ($dataRute as $key => $value) : ?>
+            <tr>
                 <td><?php echo $key + 1 ?></td>
-                <td><?php echo $value['mountain_id'] ?> </td>
                 <td><?php echo $value['route_name'] ?> </td>
                 <td><?php echo $value['route_quota'] ?> </td>
                 <td><?php echo $value['route_recent'] ?></td>
@@ -47,7 +45,8 @@ while ($row = $queryRute->fetch_assoc()) {
                 <td><?php echo $value['route_price'] ?></td>
                 <td><?php echo $value['route_img'] ?></td>
                 <td><a href="routedetail.php?route=<?php echo $value['route_id'] ?>">Lihat</a></td>
-            <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
 </body>
 
 </html>

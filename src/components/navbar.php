@@ -3,7 +3,7 @@
         <a href="./index.php" class="text-3xl font-black">Booking Pendakian</a>
     </div>
     <div>
-        <a href="./listgunung.php" class="underline">List gunung</a>
+        <a href="./ongoing.php" class="underline">Ongoing</a>
         <a href="./history.php" class="underline">History</a>
     </div>
     <div class="flex items-center">
@@ -46,9 +46,9 @@
     </div>
 </nav>
 <style>
-nav{
-    background:white
-}
+    nav {
+        background: white
+    }
 </style>
 <script>
     function handleProfileComponents() {
