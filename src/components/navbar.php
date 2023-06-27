@@ -1,4 +1,4 @@
-<nav class="flex justify-between items-center px-4 py-5 max-w-screen-xl h-[125px] mx-auto border-b mb-12 relative">
+<nav class="flex justify-between items-center px-4 py-5  h-[125px] mx-auto border-b mb-12 relative">
     <div>
         <a href="./index.php" class="text-3xl font-black">Booking Pendakian</a>
     </div>
@@ -45,6 +45,11 @@
 
     </div>
 </nav>
+<style>
+nav{
+    background:white
+}
+</style>
 <script>
     function handleProfileComponents() {
         var userProfile = document.getElementById('UserProfileComponent');

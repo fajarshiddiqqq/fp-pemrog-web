@@ -13,8 +13,7 @@ include 'connection.php';
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
-
-<body>
+<body style="background-image: url(../assets/img/Background/Gunungmerbabu3.jpg); background-repeat:no-repeat;background-size:100% 100vh;">
     <?php include './components/navbar.php' ?>
 
     <main class="max-w-screen-xl mx-auto px-4">
@@ -51,9 +50,11 @@ include 'connection.php';
 
             ?>
         <?php else : ?>
-            <h3>Belum ada user login</h3>
         <?php endif; ?>
+        <h1 style="font-size:60px; text-align:center; font-family:">Booking Pendakian</h1>
+        <p style="text-align:center">selamat datang di situs booking pendakian gunung</p>
     </main>
+    
 </body>
 
 </html>

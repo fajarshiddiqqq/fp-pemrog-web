@@ -19,7 +19,7 @@ while ($arrData = $queryMountain->fetch_assoc()) {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body style="background-image: url(../assets/img/Background/Gunungmerbabu2.jpg); background-repeat:no-repeat;background-size:100% 100vh">
+<body style="background-image: url(../assets/img/Background/Gunungmerbabu3.jpg); background-repeat:no-repeat;background-size:100% 100vh">
     <?php include './components/navbar.php' ?>
     <table>
         <tr>
