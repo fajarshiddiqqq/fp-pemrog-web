@@ -13,9 +13,11 @@ include 'connection.php';
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
+
 <body style="background-image: url(../assets/img/Background/Gunungmerbabu3.jpg); background-repeat:no-repeat;background-size:100% 100vh;">
     <?php include './components/navbar.php' ?>
 
+<<<<<<< HEAD
     <main class="max-w-screen-xl mx-auto px-4">
         <?php if (isset($_SESSION['user'])) : ?>
             <h2>Data tabel user: </h2>
@@ -53,8 +55,14 @@ include 'connection.php';
         <?php endif; ?>
         <h1 style="font-size:60px; text-align:center;">Booking Pendakian</h1>
         <p style="text-align:center">selamat datang di situs booking pendakian gunung</p>
+=======
+    <main class="">
+        <h1 style="font-size:60px; text-align:center; ">Booking Pendakian</h1>
+        <p style="text-align:center; margin-bottom: 200px">selamat datang di situs booking pendakian gunung</p>
+        <a href="">testing</a>
+>>>>>>> 4a46f32bc5fbb15d106e1d1c8c101799f4d983d3
     </main>
-    
+
 </body>
 
 </html>
