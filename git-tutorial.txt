@@ -13,6 +13,7 @@ Git cloud	  = Area untuk upload commit ke cloud (github, gitlab, etc.)
 git init 				//supaya git-nya terdeteksi dalam folder
 git remote add origin <link-repo>  	//supaya kita bisa ngakses reponya
 git clone <link-repo>   		//untuk copas project dari github biar reponya sama dulu (sekali aja)
+git branch -M <nama-branch>		//ubah branch ke main
 git pull origin <nama-branch> 		//untuk nyamain perubahan dari project yang ada di pc (yang udah diclone) sama yang digithub
 
 
