@@ -54,7 +54,7 @@ for ($i = 0; $i < count($userData); $i++) {
         <div class="rounded-lg border relative shadow-lg p-4">
             <h3 class="text-center text-3xl font-bold uppercase mt-5 mb-12">ADMIN CONTROL PANEL</h3>
             <a href="logout.php" class="font-bold text-white bg-red-500 px-3 py-2 rounded-sm absolute right-10 top-10">Logout</a>
-
+            <a href="inputgunung.php" class="font-bold text-white bg-gray-500 px-3 py-2 rounded-sm absolute left-10 top-10">Mountain</a>
             <table class="mt-8 w-full">
                 <thead>
                     <tr>

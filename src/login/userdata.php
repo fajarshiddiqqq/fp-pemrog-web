@@ -17,7 +17,7 @@ if (isset($_SESSION['user']['user_status']) != 'incomplete') {
     <title>Data Input</title>
     <link rel="stylesheet" href="../../dist/output.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
             $('#province').change(function() {
