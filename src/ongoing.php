@@ -49,6 +49,7 @@
 </head>
 
 <body>
+<form method="POST">
     <div class="ticket-container">
         <div class="ticket-info">
             <h2>Ongoing Tiket Pemesanan</h2>
@@ -60,11 +61,40 @@
             <p>Status: <?php echo $dataBooking['booking_status']; ?></p>
             <p>Token Tiket: <?php echo $dataBooking['booking_token']; ?></p>
         </div>
-
-        <button class="bg-red-500 text-white px-4 py-2 mt-2"><a href="history.php">Cancel</a></button>
+        
+        <button class="border-black rounded-sm border px-3 py-2 hover:bg-black hover:text-white" name="submit"><input type="hidden" name="booking_log_id" value="<?php echo $dataBooking['booking_log_id']; ?>">Cancelled Booking</input></button>
+        <button class="bg-red-500 text-white px-4 py-2 mt-2"><a href="history.php">Back</a></button>
     </div>
+</form>
 </body>
 
 </html>
 <?php
+    if (isset($_POST['submit'])) {
+        if (!isset($_SESSION['user'])) {
+            echo "<script>alert('user belum login')</script>";
+        } else {
+            $user_data = $_SESSION['user'];
+            $user_id = $user_data['user_id'];
+            $queryUserDetail = $conn->query("SELECT user_detail_id,user_identity_status FROM user_detail WHERE user_id = '$user_id'");
+            $dataUserDetail = $queryUserDetail->fetch_assoc();
+            if ($dataUserDetail['user_identity_status'] == 'verified') {
+                $booking_log_id = $dataBooking['booking_log_id'];
+                $queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE booking_log_id = $booking_log_id");
+                if ($queryBooking) {
+                    $dataBooking = $queryBooking->fetch_assoc();
+                    $BookingQuery = "UPDATE booking_log SET booking_status = 'canceled' WHERE booking_log_id = $booking_log_id";
+                    if ($conn->query($BookingQuery)) {
+                        echo "<script>alert('Booking cancel successfully.')</script>";
+                    } else {
+                        echo "Error: " . $conn->error;
+                    }
+                } else {
+                    echo "<script>alert('Gagal mengambil data booking.')</script>";
+                }
+            } else {
+                echo "<script>alert('KTP BELUM TERVERIFIKASI')</script>";
+            }
+        }
+    }
 ?>
