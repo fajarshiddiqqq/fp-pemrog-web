@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 24, 2023 at 04:27 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Jun 26, 2023 at 03:26 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -31,7 +31,7 @@ CREATE TABLE `admins` (
   `admin_id` int(11) NOT NULL,
   `admin_name` varchar(50) DEFAULT NULL,
   `admin_password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admins`
@@ -51,16 +51,17 @@ CREATE TABLE `booking_log` (
   `route_id` int(11) DEFAULT NULL,
   `user_detail_id` int(11) DEFAULT NULL,
   `booking_date` date DEFAULT NULL,
+  `booking_expired` date DEFAULT NULL,
   `booking_status` enum('pending','complete','canceled') DEFAULT NULL,
   `booking_token` char(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `booking_log`
 --
 
-INSERT INTO `booking_log` (`booking_log_id`, `route_id`, `user_detail_id`, `booking_date`, `booking_status`, `booking_token`) VALUES
-(1, 1, 7, '2023-06-24', 'complete', 'f4Ja12');
+INSERT INTO `booking_log` (`booking_log_id`, `route_id`, `user_detail_id`, `booking_date`, `booking_expired`, `booking_status`, `booking_token`) VALUES
+(5, 1, 7, '2023-06-25', '2023-06-30', 'pending', 'JVs4iu');
 
 -- --------------------------------------------------------
 
@@ -72,7 +73,7 @@ CREATE TABLE `cities` (
   `city_id` int(11) NOT NULL,
   `city_name` varchar(255) DEFAULT NULL,
   `prov_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `cities`
@@ -565,7 +566,7 @@ CREATE TABLE `districts` (
   `dis_id` int(11) NOT NULL,
   `dis_name` varchar(255) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `districts`
@@ -7580,7 +7581,7 @@ CREATE TABLE `employees` (
   `employee_id` int(11) NOT NULL,
   `employee_name` varchar(50) DEFAULT NULL,
   `employee_password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employees`
@@ -7601,14 +7602,14 @@ CREATE TABLE `mountain` (
   `mountain_height` decimal(8,2) DEFAULT NULL,
   `mountain_province` varchar(20) DEFAULT NULL,
   `mountain_img` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `mountain`
 --
 
 INSERT INTO `mountain` (`mountain_id`, `mountain_name`, `mountain_height`, `mountain_province`, `mountain_img`) VALUES
-(1, 'Merbabu', 3175.00, '13', 'merbabu.jpg');
+(1, 'Merbabu', '3175.00', '13', 'merbabu.jpg');
 
 -- --------------------------------------------------------
 
@@ -7619,7 +7620,7 @@ INSERT INTO `mountain` (`mountain_id`, `mountain_name`, `mountain_height`, `moun
 CREATE TABLE `provinces` (
   `prov_id` int(11) NOT NULL,
   `prov_name` varchar(255) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 --
 -- Dumping data for table `provinces`
@@ -7677,7 +7678,7 @@ CREATE TABLE `route` (
   `route_status` enum('open','close') DEFAULT NULL,
   `route_price` int(11) DEFAULT NULL,
   `route_img` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `route`
@@ -7699,7 +7700,7 @@ CREATE TABLE `users` (
   `user_password` varchar(255) DEFAULT NULL,
   `user_password_count` int(11) NOT NULL,
   `user_status` enum('complete','incomplete') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -7707,7 +7708,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `user_name`, `user_email`, `user_password`, `user_password_count`, `user_status`) VALUES
 (5, 'fajarshiddiqqq', 'fajarshiddiqqq@gmail.com', '471c6d877d79ea7a30cd4de02731770cbcd1878c', 19, 'complete'),
-(9, 'user_test', 'email_test@gmail', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3, 'incomplete');
+(9, 'user_test', 'email_test@gmail', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3, 'incomplete'),
+(10, 'farhanhidayatul', 'farhanhidayatul@gmail.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 3, 'incomplete');
 
 --
 -- Triggers `users`
@@ -7739,14 +7741,14 @@ CREATE TABLE `user_detail` (
   `user_photo` varchar(255) DEFAULT NULL,
   `user_identity_card` varchar(255) DEFAULT NULL,
   `user_identity_status` enum('unverified','verified','rejected') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_detail`
 --
 
 INSERT INTO `user_detail` (`user_detail_id`, `user_id`, `user_full_name`, `user_phone_number`, `user_birth_date`, `user_province`, `user_city`, `user_district`, `user_postal_code`, `user_address`, `user_weight`, `user_height`, `user_photo`, `user_identity_card`, `user_identity_status`) VALUES
-(7, 5, 'Muhammad Fajar Ash Shiddiq', '+6285640840796', '2003-07-15', '14', '210', '3168', '55584', 'Gg. Sabrang, No. 05, Jl. Pesanggrahan Raya, Sanggrahan, Wedomartani, Ngemplak, Sleman, DIY, testing', 53.00, 167.00, 'user_5_photo.jpg', 'user_5_identity.png', 'unverified');
+(7, 5, 'Muhammad Fajar Ash Shiddiq', '+6285640840796', '2003-07-15', '14', '210', '3168', '55584', 'Gg. Sabrang, No. 05, Jl. Pesanggrahan Raya, Sanggrahan, Wedomartani, Ngemplak, Sleman, DIY, testing', '53.00', '167.00', 'user_5_photo.jpg', 'user_5_identity.png', 'verified');
 
 --
 -- Indexes for dumped tables
@@ -7830,7 +7832,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `booking_log`
 --
 ALTER TABLE `booking_log`
-  MODIFY `booking_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `booking_log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -7872,7 +7874,7 @@ ALTER TABLE `route`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `user_detail`

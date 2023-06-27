@@ -1,10 +1,13 @@
 <?php
     include './connection.php';
-    $booking_id = $_GET['booking_log'];
-    $queryBooking = $conn->query("SELECT * FROM 'booking_log' WHERE booking_log_id = $booking_id");
+    $queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE booking_log_id;");
 
-    $dataBooking = $queryBooking->fetch_assoc();
-    print_r($dataBooking);
+    if ($queryBooking) {
+        $dataBooking = $queryBooking->fetch_assoc();
+
+    } else {
+        echo "Gagal mengambil data booking.";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,7 +52,7 @@
     <div class="ticket-container">
         <div class="ticket-info">
             <h2>Ongoing Tiket Pemesanan</h2>
-            <p>No Tiket: <?php echo $dataBooking['route_id']; ?></p>
+            <p>No Tiket: <?php echo $dataBooking['booking_log_id']; ?></p>
             <p>Rute Tiket: <?php echo $dataBooking['route_id']; ?></p>
             <p>Nama Pemesan: <?php echo $dataBooking['user_detail_id']; ?></p>
             <p>Tanggal Pemesanan: <?php echo $dataBooking['booking_date']; ?></p>
