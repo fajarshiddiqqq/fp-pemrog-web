@@ -2,12 +2,8 @@
     <div>
         <a href="./index.php" class="text-3xl font-black">Booking Pendakian</a>
     </div>
-    <div>
-        <a href="./listgunung.php"class="underline">List Gunung</a>
-        <a href="./ongoing.php" class="underline">Ongoing</a>
-        <a href="./history.php" class="underline">History</a>
-    </div>
     <div class="flex items-center">
+        <a href="./listgunung.php" class="mr-5 border px-2 py-2 border-black rounded-sm">List Gunung</a>
         <?php if (!isset($_SESSION['user'])) : ?>
             <a href="../src/login" class="bg-blue-500 text-white font-semibold w-[90px] py-2 rounded-sm hover:bg-blue-400 text-center block">Sign In</a>
         <?php else : ?>
@@ -38,7 +34,15 @@
                 <a href="/fp-pemrog-web/src/history.php" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
                     <li>History</li>
                 </a>
-                <a href="login/logout.php?return_url=<?php echo urlencode($_SERVER['PHP_SELF']); ?>" class="font-bold text-red-500 px-4 py-3 w-full text-center hover:text-white hover:bg-red-500">
+                <a href="./ongoing.php" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
+                    <li>Ongoing</li>
+                </a>
+                <a href="./history.php" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
+                    <li>
+                        History
+                    </li>
+                </a>
+                <a href="login/logout.php" class="font-bold text-red-500 px-4 py-3 w-full text-center hover:text-white hover:bg-red-500">
                     <li>Logout</li>
                 </a>
             </ul>

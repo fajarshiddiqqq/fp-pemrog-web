@@ -20,6 +20,7 @@ include 'connection.php';
     <main class="max-w-screen-xl mx-auto px-4">
         <h1 style="font-size:60px; text-align:center;">Booking Pendakian</h1>
         <p style="text-align:center">selamat datang di situs booking pendakian gunung</p>
+
     </main>
 
 </body>

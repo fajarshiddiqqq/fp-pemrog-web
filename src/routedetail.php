@@ -51,6 +51,9 @@ if (isset($_POST['submit'])) {
         $queryUserDetail = $conn->query("SELECT user_detail_id,user_identity_status FROM user_detail WHERE user_id = '$user_id'");
         $dataUserDetail = $queryUserDetail->fetch_assoc();
         if ($dataUserDetail['user_identity_status'] == 'verified') {
+            $routeRecent = $dataRute['route_recent'] - 1;
+            $conn->query("UPDATE `route` SET route_recent = $routeRecent WHERE route_id= $route_id");
+
             $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             $token = '';
             $max = strlen($characters) - 1;
@@ -63,7 +66,6 @@ if (isset($_POST['submit'])) {
             $querryInsert = $conn->query("INSERT INTO booking_log(route_id, user_detail_id, booking_date, booking_expired, booking_status, booking_token) VALUES('$route_id','$user_detail_id','$booking_date', '$booking_expired','pending','$token')");
             if ($querryInsert) {
                 echo "<script>alert('Data booking sudah tersimpan')</script>";
-                
             } else {
                 echo "<script>alert('Internal server error')</script>";
             }
