@@ -1,10 +1,11 @@
 <?php
     include './connection.php';
     $queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE booking_log_id;");
+    $detail = $conn->query("SELECT user_full_name FROM `user_detail`");
 
     if ($queryBooking) {
         $dataBooking = $queryBooking->fetch_assoc();
-
+        $namalengkap = $detail->fetch_assoc();
     } else {
         echo "Gagal mengambil data booking.";
     }
@@ -52,10 +53,10 @@
 <form method="POST">
     <div class="ticket-container">
         <div class="ticket-info">
-            <h2>Ongoing Tiket Pemesanan</h2>
+            <h2 class="Bold">Ongoing Tiket Pemesanan</h2>
             <p>No Tiket: <?php echo $dataBooking['booking_log_id']; ?></p>
             <p>Rute Tiket: <?php echo $dataBooking['route_id']; ?></p>
-            <p>Nama Pemesan: <?php echo $dataBooking['user_detail_id']; ?></p>
+            <p>Nama Pemesan: <?php echo $namalengkap['user_full_name']; ?></p>
             <p>Tanggal Pemesanan: <?php echo $dataBooking['booking_date']; ?></p>
             <p>Tanggal kadaluwarsa: <?php echo $dataBooking['booking_expired']; ?></p>
             <p>Status: <?php echo $dataBooking['booking_status']; ?></p>

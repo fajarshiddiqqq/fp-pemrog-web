@@ -1,7 +1,9 @@
 <?php
     include "connection.php";
     $queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE booking_log_id;");
+    $detail = $conn->query("SELECT user_full_name FROM `user_detail`");
     $dataBooking = $queryBooking->fetch_assoc();
+    $namalengkap = $detail->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +21,7 @@
         <tr>
             <th class="border border-slate-600 px-4 py-2">No Booking</th>
             <th class="border border-slate-600 px-4 py-2">No Route</th>
-            <th class="border border-slate-600 px-4 py-2">User Detail</th>
+            <th class="border border-slate-600 px-4 py-2">Nama User</th>
             <th class="border border-slate-600 px-4 py-2">Booking Date</th>
             <th class="border border-slate-600 px-4 py-2">Booking Expired</th>
             <th class="border border-slate-600 px-4 py-2">Booking_status</th>
@@ -29,7 +31,7 @@
         <tr class="bg-gray-200">
             <td class=" text-center px-4 py-2"><?php echo $dataBooking['booking_log_id'] ?> </td>
             <td class=" text-center px-4 py-2"><?php echo $dataBooking['route_id'] ?> </td>
-            <td class=" text-center px-4 py-2"><?php echo $dataBooking['user_detail_id'] ?> </td>
+            <td class=" text-center px-4 py-2"><?php echo $namalengkap['user_full_name'] ?> </td>
             <td class=" text-center px-4 py-2"><?php echo $dataBooking['booking_date'] ?></td>
             <td class=" text-center px-4 py-2"><?php echo $dataBooking['booking_expired'] ?></td>
             <td class=" text-center px-4 py-2"><?php echo $dataBooking['booking_status'] ?></td>
