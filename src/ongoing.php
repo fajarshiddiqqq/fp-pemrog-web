@@ -1,14 +1,30 @@
 <?php
-    include './connection.php';
-    $queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE booking_log_id;");
-    $detail = $conn->query("SELECT user_full_name FROM `user_detail`");
+include './connection.php';
+if (!isset($_SESSION['user'])) {
+    echo "<script>alert('Login Terlebih Dahulu!')</script>";
+    echo "<script>location='./login'</script>";
+}
 
-    if ($queryBooking) {
-        $dataBooking = $queryBooking->fetch_assoc();
-        $namalengkap = $detail->fetch_assoc();
-    } else {
-        echo "Gagal mengambil data booking.";
-    }
+$userId = $_SESSION['user']['user_id'];
+
+$queryUserDetail = $conn->query("SELECT * FROM `user_detail` WHERE user_id = '$userId'");
+$dataUserDetail = $queryUserDetail->fetch_assoc();
+
+$userDetailId = $dataUserDetail['user_detail_id'];
+$queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE user_detail_id = $userDetailId");
+$dataBooking = $queryBooking->fetch_assoc();
+
+if ($queryBooking->num_rows > 0) {
+    $routeId = $dataBooking['route_id'];
+    $queryRute = $conn->query("SELECT mountain_id, route_name, route_price FROM `route` WHERE route_id = '$routeId'");
+    $dataRute = $queryRute->fetch_assoc();
+    $routeName = $dataRute['route_name'];
+    $mountainId = $dataRute['mountain_id'];
+    $queryMountain = $conn->query("SELECT mountain_name FROM `mountain` WHERE mountain_id = '$mountainId'");
+    $dataMountain = $queryMountain->fetch_assoc();
+    $mountainName = $dataMountain['mountain_name'];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,54 +64,47 @@
         }
     </style>
 </head>
-<?php include './components/navbar.php' ?>
+
 <body>
-<form method="POST">
-    <div class="ticket-container">
-        <div class="ticket-info">
-            <h2 class="Bold">Ongoing Tiket Pemesanan</h2>
-            <p>No Tiket: <?php echo $dataBooking['booking_log_id']; ?></p>
-            <p>Rute Tiket: <?php echo $dataBooking['route_id']; ?></p>
-            <p>Nama Pemesan: <?php echo $namalengkap['user_full_name']; ?></p>
-            <p>Tanggal Pemesanan: <?php echo $dataBooking['booking_date']; ?></p>
-            <p>Tanggal kadaluwarsa: <?php echo $dataBooking['booking_expired']; ?></p>
-            <p>Status: <?php echo $dataBooking['booking_status']; ?></p>
-            <p>Token Tiket: <?php echo $dataBooking['booking_token']; ?></p>
-        </div>
-        
-        <button class="border-black rounded-sm border px-3 py-2 hover:bg-black hover:text-white" name="submit"><input type="hidden" name="booking_log_id" value="<?php echo $dataBooking['booking_log_id']; ?>">Cancelled Booking</input></button>
-        <button class="bg-red-500 text-white px-4 py-2 mt-2"><a href="history.php">Back</a></button>
+    <div class="absolute z-10 w-full">
+        <?php include './components/navbar.php' ?>
     </div>
-</form>
+    <form method="POST">
+        <div class="ticket-container">
+            <?php if ($queryBooking->num_rows > 0) : ?>
+                <?php if ($dataBooking['booking_status'] == 'pending') : ?>
+                    <div class="ticket-info">
+                        <h2 class="Bold">Ongoing Tiket Pemesanan</h2>
+                        <p>No Tiket: <?php echo $dataBooking['booking_log_id']; ?></p>
+                        <p>Destinasi: <?php echo "$routeName, $mountainName"; ?></p>
+                        <p>Nama Pemesan: <?php echo $dataUserDetail['user_full_name']; ?></p>
+                        <p>Tanggal Pemesanan: <?php echo $dataBooking['booking_date']; ?></p>
+                        <p>Tanggal kadaluwarsa: <?php echo $dataBooking['booking_expired']; ?></p>
+                        <p>Harga Tiket: Rp. <?php echo $dataRute['route_price']; ?></p>
+                        <p>Status: <?php echo $dataBooking['booking_status']; ?></p>
+                        <p>Token Tiket: <?php echo $dataBooking['booking_token']; ?></p>
+                    </div>
+
+                    <button class="w-full rounded-sm border px-3 py-2 bg-red-500 text-white font-semibold" name="cancel">
+                        Cancel Booking
+                    </button>
+                <?php endif; ?>
+            <?php else : ?>
+                <h2 class="text-center">TIdak ada booking yang sedang berlangsung</h2>
+            <?php endif; ?>
+        </div>
+    </form>
+
 </body>
 
 </html>
 <?php
-    if (isset($_POST['submit'])) {
-        if (!isset($_SESSION['user'])) {
-            echo "<script>alert('user belum login')</script>";
-        } else {
-            $user_data = $_SESSION['user'];
-            $user_id = $user_data['user_id'];
-            $queryUserDetail = $conn->query("SELECT user_detail_id,user_identity_status FROM user_detail WHERE user_id = '$user_id'");
-            $dataUserDetail = $queryUserDetail->fetch_assoc();
-            if ($dataUserDetail['user_identity_status'] == 'verified') {
-                $booking_log_id = $dataBooking['booking_log_id'];
-                $queryBooking = $conn->query("SELECT * FROM `booking_log` WHERE booking_log_id = $booking_log_id");
-                if ($queryBooking) {
-                    $dataBooking = $queryBooking->fetch_assoc();
-                    $BookingQuery = "UPDATE booking_log SET booking_status = 'canceled' WHERE booking_log_id = $booking_log_id";
-                    if ($conn->query($BookingQuery)) {
-                        echo "<script>alert('Booking cancel successfully.')</script>";
-                    } else {
-                        echo "Error: " . $conn->error;
-                    }
-                } else {
-                    echo "<script>alert('Gagal mengambil data booking.')</script>";
-                }
-            } else {
-                echo "<script>alert('KTP BELUM TERVERIFIKASI')</script>";
-            }
-        }
+if (isset($_POST['cancel'])) {
+    $queryUpdate = $conn->query("UPDATE `booking_log` SET booking_status = 'canceled' WHERE user_detail_id = $userDetailId");
+    if ($queryUpdate) {
+        echo "<script>location='./history.php'</script>";
+    } else {
+        echo "<script>alert('Gagal mengambil data booking.')</script>";
     }
+}
 ?>
