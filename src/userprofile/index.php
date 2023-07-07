@@ -14,55 +14,60 @@ $getUser = $getUserQuery->fetch_assoc();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile Page</title>
+    <title>Mountrip Id</title>
     <link rel="stylesheet" href="../../dist/output.css">
 </head>
 
 <body>
-    <div class="w-full flex items-center justify-center h-screen">
-        <form class="border shadow-sm rounded-sm px-12 py-3 w-full max-w-xl relative bg-white" method="post">
-            <a href="../index.php" class="absolute right-10 top-6 cursor-pointer">
-                <img src="../../assets/x_symbol.svg" width="20" alt="">
-            </a>
-            <h3 class="text-center text-4xl font-semibold my-5">User profile</h3>
-            <div class="w-full flex items-center justify-center mb-5 relative">
-                <div class="w-28 h-28 flex items-center overflow-hidden rounded-full object-cover group">
-                    <?php
-                    if ($getUser) {
-                    ?>
-                        <img src="../../assets/img/userdata/<?php echo $getUser['user_photo']; ?>?timestamp=<?php echo time(); ?>" alt="user_profile">
-                    <?php
-                    } else {
-                    ?>
-                        <img src="../../assets/default-profile.png" alt="user_profile">
-                    <?php
-                    }
-                    ?>
+    <img src="../../assets/img/Background/background.jpg" class="absolute w-full h-screen -z-20">
+    <div class="absolute w-full h-screen -z-10 bg-black/[0.6]"></div>
+    <main class="absolute overflow-hidden overflow-y-auto w-full bg-transparent h-screen">
+        <div class="w-full flex items-center justify-center h-screen">
+            <form class="border shadow-sm rounded-sm px-12 py-3 w-full max-w-xl relative bg-white" method="post">
+                <a href="../index.php" class="absolute right-10 top-6 cursor-pointer">
+                    <img src="../../assets/x_symbol.svg" width="20" alt="">
+                </a>
+                <h3 class="text-center text-4xl font-semibold my-5">User profile</h3>
+                <div class="w-full flex items-center justify-center mb-5 relative">
+                    <div class="w-28 h-28 flex items-center overflow-hidden rounded-full object-cover group">
+                        <?php
+                        if ($getUser) {
+                        ?>
+                            <img src="../../assets/img/userdata/<?php echo $getUser['user_photo']; ?>?timestamp=<?php echo time(); ?>" alt="user_profile">
+                        <?php
+                        } else {
+                        ?>
+                            <img src="../../assets/default-profile.png" alt="user_profile">
+                        <?php
+                        }
+                        ?>
+
+                    </div>
+
 
                 </div>
+                <div class="mb-5 flex flex-col">
+                    <label for="username" class="mb-3 uppercase text-xs font-bold">Username</label>
+                    <input type="text" name="username" id="username" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required value="<?php echo $_SESSION['user']['user_name'] ?>">
+                </div>
+                <div class="mb-5 flex flex-col">
+                    <label for="email" class="mb-3 uppercase text-xs font-bold">Email</label>
+                    <input type="email" name="email" id="email" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required value="<?php echo $_SESSION['user']['user_email'] ?>">
+                </div>
+                <div class="mb-12 flex flex-col">
+                    <label for="password" class="mb-3 uppercase text-xs font-bold">Password</label>
+                    <input onclick="hidePlaceholder()" onblur="showPlaceholder()" type="password" name="password" id="password" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2 placeholder:text-black" placeholder="<?php for ($x = 0; $x < $_SESSION['user']['user_password_count']; $x++) {
+                                                                                                                                                                                                                                                echo "•";
+                                                                                                                                                                                                                                            } ?>" value="">
+                </div>
+                <div class="w-full flex justify-between mb-5">
+                    <a href="editdata.php" class="border rounded-sm text-white hover:text-gray-500 bg-gray-500 hover:bg-white border-gray-500 font-semibold px-4 py-2">More Data</a>
+                    <button name="submit" class="border rounded-sm px-6 py-2 font-semibold hover:text-blue-500 border-blue-500 bg-blue-500 text-white hover:bg-white  ">Save</button>
+                </div>
+            </form>
+        </div>
+    </main>
 
-
-            </div>
-            <div class="mb-5 flex flex-col">
-                <label for="username" class="mb-3 uppercase text-xs font-bold">Username</label>
-                <input type="text" name="username" id="username" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required value="<?php echo $_SESSION['user']['user_name'] ?>">
-            </div>
-            <div class="mb-5 flex flex-col">
-                <label for="email" class="mb-3 uppercase text-xs font-bold">Email</label>
-                <input type="email" name="email" id="email" placeholder="" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2" required value="<?php echo $_SESSION['user']['user_email'] ?>">
-            </div>
-            <div class="mb-12 flex flex-col">
-                <label for="password" class="mb-3 uppercase text-xs font-bold">Password</label>
-                <input onclick="hidePlaceholder()" onblur="showPlaceholder()" type="password" name="password" id="password" autocomplete="off" class="border border-slate-500 rounded-sm px-3 py-2 placeholder:text-black" placeholder="<?php for ($x = 0; $x < $_SESSION['user']['user_password_count']; $x++) {
-                                                                                                                                                                                                                                            echo "•";
-                                                                                                                                                                                                                                        } ?>" value="">
-            </div>
-            <div class="w-full flex justify-between mb-5">
-                <a href="editdata.php" class="border rounded-sm text-white hover:text-gray-500 bg-gray-500 hover:bg-white border-gray-500 font-semibold px-4 py-2">More Data</a>
-                <button name="submit" class="border rounded-sm px-6 py-2 font-semibold hover:text-blue-500 border-blue-500 bg-blue-500 text-white hover:bg-white  ">Save</button>
-            </div>
-        </form>
-    </div>
     <script>
         function hidePlaceholder() {
             var input = document.getElementById('password');

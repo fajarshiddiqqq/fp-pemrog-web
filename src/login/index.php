@@ -11,13 +11,15 @@ if (isset($_SESSION['user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Mountrip Id</title>
     <link rel="stylesheet" href="../../dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
 <body>
+    <img src="../../assets/img/Background/background.jpg" class="absolute w-full h-screen -z-20">
+    <div class="absolute w-full h-screen -z-10 bg-black/[0.6]"></div>
     <div class="w-full h-screen flex justify-center items-center px-4 ">
         <div class="border flex flex-col justify-center items-center py-12 px-16 rounded-lg shadow-lg w-full max-w-xl relative bg-white">
             <h3 class="text-4xl font-semibold my-2">Sign in</h3>

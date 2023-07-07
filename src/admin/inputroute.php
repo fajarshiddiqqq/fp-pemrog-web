@@ -71,7 +71,7 @@ if (!isset($_SESSION['admin'])) {
                     <input type="file" name="image" id="image" autocomplete="off" required>
                 </div>
                 <div class="flex justify-between items-center">
-                    <a href="./inputroute.php" class="bg-gray-500 text-white font-semibold w-[90px] py-2 rounded-sm text-center hover:bg-gray-400">Route</a>
+                    <a href="./inputgunung.php" class="bg-gray-500 text-white font-semibold w-[90px] py-2 rounded-sm text-center hover:bg-gray-400">Back</a>
                     <button class="bg-blue-500 text-white font-semibold w-[90px] py-2 rounded-sm hover:bg-blue-400" name="save">
                         Save
                     </button>

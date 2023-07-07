@@ -30,7 +30,7 @@ if ($queryBooking) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History Page</title>
+    <title>Mountrip Id</title>
     <link rel="stylesheet" href="../dist/output.css">
     <style>
         .title-bg {
@@ -69,7 +69,7 @@ if ($queryBooking) {
                 <th class="border border-slate-600 px-4 py-2">Hapus</th>
             </tr>
             <?php foreach ($dataBooking as $key => $value) : ?>
-                <?php if ($dataBooking['booking_status'] != 'pending') : ?>
+                <?php if ($dataBooking[$key]['booking_status'] != 'pending') : ?>
                     <tr class="bg-gray-200">
                         <td class=" text-center px-4 py-2"><?php echo $key + 1 ?> </td>
                         <td class=" text-center px-4 py-2"><?php echo $value['booking_log_id'] ?> </td>

@@ -32,7 +32,7 @@ if ($queryBooking->num_rows > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ongoing Page</title>
+    <title>Mountrip Id</title>
     <link rel="stylesheet" href="../../dist/output.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -66,9 +66,9 @@ if ($queryBooking->num_rows > 0) {
 </head>
 
 <body>
-    <div class="absolute z-10 w-full">
-        <?php include './components/navbar.php' ?>
-    </div>
+    <img src="../assets/img/Background/background.jpg" class="absolute w-full h-screen -z-20">
+    <div class="absolute w-full h-screen -z-10 bg-black/[0.6]"></div>
+    <?php include './components/navbar.php' ?>
     <form method="POST">
         <div class="ticket-container">
             <?php if ($queryBooking->num_rows > 0) : ?>

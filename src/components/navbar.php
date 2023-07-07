@@ -1,14 +1,13 @@
-<nav class="flex justify-between items-center px-4 py-5  h-[125px] mx-auto border-b mb-12 relative">
+<nav class="flex justify-between items-center px-12 py-5  h-[125px] w-full mx-auto z-10 mb-12 absolute bg-transparent text-white">
     <div>
-        <a href="./index.php" class="text-3xl font-black">Booking Pendakian</a>
+        <a href="./index.php" class="text-3xl font-bold">Mountrip Id</a>
     </div>
     <div class="flex items-center">
-        <a href="./listgunung.php" class="mr-5 border px-2 py-2 border-black rounded-sm">List Gunung</a>
         <?php if (!isset($_SESSION['user'])) : ?>
             <a href="../src/login" class="bg-blue-500 text-white font-semibold w-[90px] py-2 rounded-sm hover:bg-blue-400 text-center block">Sign In</a>
         <?php else : ?>
             <div class="flex items-center gap-4">
-                <div id='UserProfile' class="w-20 h-20 flex items-center overflow-hidden rounded-full object-cover cursor-pointer" onclick="handleProfileComponents()">
+                <div id='UserProfile' class="w-20 h-20 flex items-center overflow-hidden rounded-full object-cover cursor-pointer">
                     <?php
                     $userId = $_SESSION['user']['user_id'];
                     $result = $conn->query("SELECT user_photo FROM user_detail WHERE user_id = $userId");
@@ -27,12 +26,9 @@
                 </div>
 
             </div>
-            <ul id="UserProfileComponent" class="hidden absolute top-[120px] bg-white flex-col items-center border rounded-sm shadow-sm right-0">
+            <ul id="UserProfileComponent" class="hidden absolute top-[124px] bg-white flex-col items-center rounded-sm shadow-sm right-0 text-black">
                 <a href="userprofile" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
                     <li>Manage Account</li>
-                </a>
-                <a href="/fp-pemrog-web/src/history.php" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
-                    <li>History</li>
                 </a>
                 <a href="./ongoing.php" class="border-b px-4 py-3 w-full text-center hover:bg-slate-50">
                     <li>Ongoing</li>
@@ -56,9 +52,19 @@
     }
 </style>
 <script>
-    function handleProfileComponents() {
-        var userProfile = document.getElementById('UserProfileComponent');
-        userProfile.classList.toggle('hidden');
-        userProfile.classList.toggle('flex');
-    }
+    let userProfileComponents = document.getElementById('UserProfileComponent');
+    let userProfile = document.getElementById('UserProfile');
+    document.addEventListener('click', event => {
+        const isClickInside = userProfile.contains(event.target);
+        if (!isClickInside && !userProfileComponents.classList.contains('hidden')) {
+            userProfileComponents.classList.add('hidden');
+            userProfileComponents.classList.remove('flex');
+        } else if (isClickInside && !userProfileComponents.classList.contains('hidden')) {
+            userProfileComponents.classList.add('hidden');
+            userProfileComponents.classList.remove('flex');
+        } else if (isClickInside && userProfileComponents.classList.contains('hidden')) {
+            userProfileComponents.classList.remove('hidden');
+            userProfileComponents.classList.add('flex');
+        }
+    });
 </script>
