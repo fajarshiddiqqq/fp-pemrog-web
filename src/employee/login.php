@@ -12,7 +12,7 @@ if (isset($_SESSION['employee'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Login Page</title>
     <link rel="stylesheet" href="../../dist/output.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
